@@ -5,9 +5,11 @@ requirejs.config({
     "baseUrl": "js/lib",
     "paths": {
         "app": "../app",
-        "jquery": "jquery-1.10.2",
+        "views": "../app/views",
+        "jquery": "jquery-latest",
         "underscore": "underscore",
-        "backbone": "backbone"
+        "backbone": "backbone",
+        "layout": "jquery.layout-latest"
     }
 });
 requirejs(["app/main"]);
