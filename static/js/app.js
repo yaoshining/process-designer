@@ -10,6 +10,15 @@ requirejs.config({
         "underscore": "underscore",
         "backbone": "backbone",
         "layout": "jquery.layout-latest"
+    },
+    shim: {
+        'backbone': {
+            deps: ['underscore', 'jquery'],
+            exports: "Backbone"
+        },
+        'layout': {
+            deps: ['jquery']
+        }
     }
 });
 requirejs(["app/main"]);
