@@ -6,6 +6,7 @@ requirejs.config({
     "paths": {
         "app": "../app",
         "views": "../app/views",
+        "controller": "../app/controller",
         "jquery": "jquery-latest",
         "underscore": "underscore",
         "backbone": "backbone",
@@ -18,6 +19,18 @@ requirejs.config({
         },
         'layout': {
             deps: ['jquery']
+        },
+        'raphael-extend': {
+            deps: ['raphael']
+        },
+        'jquery-ui': {
+            deps: ['jquery']
+        },
+        'controller/Layout': {
+            deps: ['backbone','layout']
+        },
+        'app/main': {
+            deps: ['controller/Layout','jquery','backbone']
         }
     }
 });
