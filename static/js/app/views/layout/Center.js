@@ -9,7 +9,7 @@ var Center = Backbone.View.extend({
     },
     events: {
       'mousemove': function(e){
-          console.log(e.clientX+","+ e.clientY);
+//          console.log(e.clientX+","+ e.clientY);
       }
     },
     paper: undefined,

@@ -5,6 +5,9 @@ requirejs.config({
     shim: {
         'views/layout/Center': {
             deps: ['raphael']
+        },
+        'views/layout/Canvas': {
+            deps: ['raphael-extend']
         }
     }
 });
