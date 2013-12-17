@@ -10,7 +10,8 @@ requirejs.config({
         "jquery": "jquery-latest",
         "underscore": "underscore",
         "backbone": "backbone",
-        "layout": "jquery.layout-latest"
+        "layout": "jquery.layout-latest",
+        "style": "../../css"
     },
     shim: {
         'backbone': {
@@ -31,6 +32,11 @@ requirejs.config({
         },
         'app/main': {
             deps: ['controller/Layout','jquery','backbone']
+        }
+    },
+    map: {
+        '*': {
+            "css": "css"
         }
     }
 });

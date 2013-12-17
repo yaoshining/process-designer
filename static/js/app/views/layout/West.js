@@ -4,13 +4,13 @@
 var West = Backbone.View.extend({
     tagName: "div",
     className: "ui-layout-west",
-    attribute: {
+    attributes: {
       id: "west"
     },
     initialize: function() {
         this.render();
     },
     render: function(){
-        this.$el.append($("<div>").addClass("header").html("West")).appendTo($("body"));
+        this.$el.append($("<div>").addClass("header").html("图形库")).appendTo($("body"));
     }
 });

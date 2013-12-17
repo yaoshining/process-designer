@@ -19,7 +19,7 @@ var Canvas = Backbone.View.extend({
         var rect = paper.rect(150,30,100,80,10);
         rect.node.id = "rect";
         rect.attr({
-            "fill": "#ffffcc",
+            "fill": "0-#ffffff-#ffffcc",
             "stroke": "#000",
             title: "Rect"
         });

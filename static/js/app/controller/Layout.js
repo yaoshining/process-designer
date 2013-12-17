@@ -6,7 +6,7 @@ requirejs.config({
         'views/layout/Center': {
             deps: ['raphael']
         },
-        'views/layout/Canvas': {
+        'views/designer/Canvas': {
             deps: ['raphael-extend']
         }
     }
@@ -65,5 +65,6 @@ requirejs(["views/layout/North","views/layout/South","views/layout/East","views/
         layout.addCloseBtn("#west-closer", "west");
         layout.addCloseBtn("#east-closer", "east");
         new Canvas();
+        require(["controller/ElementList"]);
     });
 });
