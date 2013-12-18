@@ -6,6 +6,7 @@ requirejs.config({
     "paths": {
         "app": "../app",
         "views": "../app/views",
+        "models": "../app/models",
         "controller": "../app/controller",
         "jquery": "jquery-latest",
         "underscore": "underscore",

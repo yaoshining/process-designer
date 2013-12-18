@@ -11,51 +11,25 @@ requirejs.config({
         }
     }
 });
-requirejs(["views/layout/North","views/layout/South","views/layout/East","views/layout/West","views/layout/Center","views/designer/Canvas"],function(){
+require([
+    "views/layout/North",
+    "views/layout/South",
+    "views/layout/East",
+    "views/layout/West",
+    "views/layout/Center",
+    "views/layout/Settings",
+    "views/designer/Canvas",
+    "views/shapes/Circle",
+    "views/shapes/Rect",
+    "views/shapes/Connection",
+    "models/shapes/Circle",
+    "models/shapes/Rect",
+    "models/shapes/Connection"],function(North,South,East,West,Center,layoutSettings,Canvas,CircleView,RectView,ConnectionView,CircleModel,RectModel,ConnectionModel){
     new North();
     new South();
     new East();
     new West();
     new Center();
-    var layoutSettings = {
-        defaults: {
-            togglerClass: "toggler",
-            buttonClass: "button"
-        },
-        west: {
-            size: 250,
-            spacing_closed:	21,			// wider space when closed
-            spacing_open: 0,
-            togglerLength_closed: 21,			// make toggler 'square' - 21x21
-            togglerAlign_closed: "top",		// align to top of resizer
-            togglerLength_open: 0,			// NONE - using custom togglers INSIDE west-pane
-            togglerTip_open: "Close West Pane",
-            togglerTip_closed: "Open West Pane",
-            resizerTip_open: "Resize West Pane",
-            slideTrigger_open: "click", 	// default
-            initClosed: true,
-            //	add 'bounce' option to default 'slide' effect
-            fxSettings_open:		{ easing: "easeOutBounce" }
-        },
-        east: {
-            size: 250,
-            spacing_closed: 21,			// wider space when closed
-            spacing_open: 0,
-            togglerLength_closed: 21,			// make toggler 'square' - 21x21
-            togglerAlign_closed: "top",		// align to top of resizer
-            togglerLength_open: 0, 			// NONE - using custom togglers INSIDE east-pane
-            togglerTip_open: "Close East Pane",
-            togglerTip_closed: "Open East Pane",
-            resizerTip_open: "Resize East Pane",
-            slideTrigger_open: "mouseover",
-            initClosed: true,
-            //	override default effect, speed, and settings
-            fxName: "drop",
-            fxSpeed: "normal",
-            fxSettings:				{ easing: "" } // nullify default easing
-        }
-
-    };
     $(function(){
         var layout = $("body").layout(layoutSettings);
         var westSelector = "body > .ui-layout-west";
@@ -64,7 +38,36 @@ requirejs(["views/layout/North","views/layout/South","views/layout/East","views/
         $("<span></span>").attr("id", "east-closer" ).prependTo(eastSelector);
         layout.addCloseBtn("#west-closer", "west");
         layout.addCloseBtn("#east-closer", "east");
-        new Canvas();
+        var canvas = new Canvas();
+        var circleModel = new CircleModel({
+            cx: 450,
+            cy: 350,
+            r: 20
+        });
+        var circle = new CircleView({
+            model: circleModel
+        });
+        circle.paper = canvas.paper;
+        circle.draw();
+        var rectModel = new RectModel({
+            x: 350,
+            y: 200,
+            width: 100,
+            height: 100,
+            r: 10
+        });
+        var rect = new RectView({
+            model: rectModel
+        });
+        rect.paper = canvas.paper;
+        rect.draw();
+        var conn = new ConnectionView();
+        conn.paper = canvas.paper;
+        conn.from = circle;
+        conn.to = rect;
+        circle.addOutgoing(conn);
+        rect.addIncoming(conn);
+        conn.draw();
         require(["controller/ElementList"]);
     });
 });
