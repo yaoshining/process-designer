@@ -5,6 +5,7 @@ define(function(){
     return Backbone.View.extend({
         tagName: "g",
         paper: null,
+        draggable: true,
         raphaelObject: null,
         incomingConnections: [],
         outgoingConnections: [],
@@ -12,13 +13,15 @@ define(function(){
 
         },
         render: function(){
-            var circle = this.paper.circle(this.model.get("cx"),this.model.get("cy"),this.model.get("r"));
+            var self = this;
+            var circle = self.paper.circle(self.model.get("cx"),self.model.get("cy"),self.model.get("r"));
             circle.attr({
-                fill: this.model.get("fill"),
-                stroke: this.model.get("stroke")
+                fill: self.model.get("fill"),
+                stroke: self.model.get("stroke")
             });
-            circle.drag(this.move,this.dragger,this.up);
-            this.raphaelObject = circle;
+            if(this.draggable)
+                circle.drag(self.move(self),self.dragger,self.up);
+            self.raphaelObject = circle;
         },
         draw: function() {
             this.render();
@@ -31,15 +34,29 @@ define(function(){
         up: function() {
             this.animate({"fill-opacity": 1}, 500);
         },
-        move: function(dx,dy) {
-            var attr = {cx: this.ox + dx, cy: this.oy + dy};
-            this.attr(attr);
+        move: function(obj) {
+            return function(dx,dy){
+                var attr = {cx: this.ox + dx, cy: this.oy + dy};
+                this.attr(attr);
+                for(var i=0;i<obj.incomingConnections.length;i++) {
+                    var conn = obj.incomingConnections[i];
+                    obj.paper.connection(conn.raphaelObject);
+                }
+                for(var i=0;i<obj.outgoingConnections.length;i++) {
+                    var conn = obj.outgoingConnections[i];
+                    obj.paper.connection(conn.raphaelObject);
+                }
+                obj.moveHandler(dx,dy,this);
+            }
         },
         addIncoming: function(conn){
             this.incomingConnections.push(conn);
         },
         addOutgoing: function(conn) {
             this.outgoingConnections.push(conn);
+        },
+        moveHandler: function(dx,dy,shape){
+
         }
     });
 });

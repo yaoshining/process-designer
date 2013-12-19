@@ -1,9 +1,7 @@
 /**
- * Created by 世宁 on 13-12-17.
+ * Created by 世宁 on 13-12-19.
  */
-define(["views/designer/bpmn2/Task",
-    "models/shapes/Rect",
-    "views/designer/ShapeHelper"],function(TaskView,TaskModel,ShapeHelper){
+define(function(RectView,RectModel){
     return Backbone.View.extend({
         tagName: "li",
         icon: "images/bpmn2.0/icons/activity/task.png",
@@ -17,7 +15,7 @@ define(["views/designer/bpmn2/Task",
             this.$el.append($("<img>").attr("src",this.icon)).append("任务");
         },
         getShape: function() {
-            var model = new TaskModel({
+            var rectModel = new RectModel({
                 x: 0,
                 y: 0,
                 width: 100,
@@ -25,10 +23,10 @@ define(["views/designer/bpmn2/Task",
                 r: 10,
                 fill: "0-#ffffff-#ffffcc"
             });
-            var task = new TaskView({
-                model: model
+            var rect = new RectView({
+                model: rectModel
             });
-            return task
+            return rect;
         }
     });
 });

@@ -23,8 +23,7 @@ require([
     "views/shapes/Rect",
     "views/shapes/Connection",
     "models/shapes/Circle",
-    "models/shapes/Rect",
-    "models/shapes/Connection"],function(North,South,East,West,Center,layoutSettings,Canvas,CircleView,RectView,ConnectionView,CircleModel,RectModel,ConnectionModel){
+    "models/shapes/Rect"],function(North,South,East,West,Center,layoutSettings,Canvas,CircleView,RectView,ConnectionView,CircleModel,RectModel){
     new North();
     new South();
     new East();
@@ -39,9 +38,10 @@ require([
         layout.addCloseBtn("#west-closer", "west");
         layout.addCloseBtn("#east-closer", "east");
         var canvas = new Canvas();
+        $.canvas = canvas;
         var circleModel = new CircleModel({
-            cx: 450,
-            cy: 350,
+            cx: 50,
+            cy: 50,
             r: 20
         });
         var circle = new CircleView({
@@ -50,11 +50,12 @@ require([
         circle.paper = canvas.paper;
         circle.draw();
         var rectModel = new RectModel({
-            x: 350,
-            y: 200,
+            x: 150,
+            y: 30,
             width: 100,
-            height: 100,
-            r: 10
+            height: 80,
+            r: 10,
+            fill: "0-#ffffff-#ffffcc"
         });
         var rect = new RectView({
             model: rectModel
