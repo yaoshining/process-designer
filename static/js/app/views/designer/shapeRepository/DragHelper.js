@@ -15,10 +15,10 @@ define(function(){
             shape: null
         },
         events: {
-            "move": function(){
+            "move": function(e1,e2){
                 this.$el.css({
-                    left: event.pageX+15,
-                    top: event.pageY+15
+                    left: e2.pageX+15,
+                    top: e2.pageY+15
                 });
             }
         },

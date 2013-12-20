@@ -15,6 +15,13 @@ define(["views/shapes/Rect","views/designer/ButtonPane"],function(RectView,butto
                     top: this.model.get("y")
                 });
             });
+        },
+        show: function(){
+            this.raphaelObject.show();
+            $(buttonPane).css({
+                left: this.model.get("x")+this.model.get("width"),
+                top: this.model.get("y")
+            });
         }
     });
 });

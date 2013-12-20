@@ -16,6 +16,7 @@ define(function(){
 
         },
         render: function(){
+            var self = this;
             var rect = this.paper.rect(this.model.get("x"),this.model.get("y"),this.model.get("width"),this.model.get("height"),this.model.get("r"));
             rect.attr({
                 fill: this.model.get("fill"),
@@ -25,6 +26,12 @@ define(function(){
             if(this.draggable)
                 rect.drag(this.move(this),this.dragger,this.up);
             this.raphaelObject = rect;
+            rect.click(function(){
+                self.click();
+            });
+            rect.mouseup(function(){
+                self.mouseup();
+            });
         },
         draw: function() {
             this.render();
@@ -59,6 +66,18 @@ define(function(){
             this.outgoingConnections.push(conn);
         },
         moveHandler: function(dx,dy,shape){
+
+        },
+        selected: function(){
+
+        },
+        unselected: function(){
+
+        },
+        click: function() {
+            this.selected();
+        },
+        mouseup: function(){
 
         }
     });

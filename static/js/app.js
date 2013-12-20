@@ -1,6 +1,10 @@
 /**
  * Created by yao on 13-12-14.
  */
+var diagram = {
+    shapes: new Array(),
+    selected: undefined
+};
 requirejs.config({
     "baseUrl": "js/lib",
     "paths": {

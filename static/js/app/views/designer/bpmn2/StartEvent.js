@@ -6,6 +6,7 @@ define(["views/shapes/Circle","views/designer/ShapeHelper","models/shapes/Rect"]
         helper: null,
         draw: function(){
             CircleView.prototype.draw.apply(this);
+            diagram.shapes.push(this);
             var model = this.model;
             var shapeHelperModel = new ShapeHelperModel({
                 x: model.get("cx")-model.get("r")-5,
@@ -25,7 +26,18 @@ define(["views/shapes/Circle","views/designer/ShapeHelper","models/shapes/Rect"]
         },
         moveHandler: function(dx,dy,shape) {
             var attr = {x: shape.ox+dx-shape.attrs.r-5,y: shape.oy+dy-shape.attrs.r-5};
+            this.helper.model.set(attr);
             this.helper.raphaelObject.attr(attr);
+        },
+        selected: function(){
+            for(var i=0;i<diagram.shapes.length;i++){
+                diagram.shapes[i].unselected();
+            }
+            this.helper.show();
+            diagram.selected = this;
+        },
+        unselected: function(){
+            this.helper.raphaelObject.hide();
         }
     });
 });

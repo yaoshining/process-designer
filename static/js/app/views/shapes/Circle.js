@@ -2,7 +2,7 @@
  * Created by 世宁 on 13-12-18.
  */
 define(function(){
-    return Backbone.View.extend({
+    var Circle = Backbone.View.extend({
         tagName: "g",
         paper: null,
         draggable: true,
@@ -22,6 +22,12 @@ define(function(){
             if(this.draggable)
                 circle.drag(self.move(self),self.dragger,self.up);
             self.raphaelObject = circle;
+            circle.click(function(){
+                self.click();
+            });
+            circle.mouseup(function(){
+                self.mouseup();
+            });
         },
         draw: function() {
             this.render();
@@ -57,6 +63,19 @@ define(function(){
         },
         moveHandler: function(dx,dy,shape){
 
+        },
+        selected: function(){
+            alert("ok");
+        },
+        unselected: function(){
+
+        },
+        click: function(){
+            this.selected();
+        },
+        mouseup: function(){
+
         }
     });
+    return Circle;
 });

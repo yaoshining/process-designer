@@ -19,26 +19,26 @@ define(["views/designer/shapeRepository/ElementList",
     var mousedownHandler = function(shapeView) {
         return function(){
             var dragHelper = new DragHelper();
-            dragHelper.$el.trigger("move");
             dragHelper.setStatus({
                 flag: false,
                 icon: $(this).find("img").attr("src"),
                 text: $(this).text(),
                 shape: shapeView.getShape()
             });
-            dragHelper.$el.show();
-            $("body").on("mousemove",function(){
-                dragHelper.$el.trigger("move");
+            $("body").on("mousemove",function(e){
+                dragHelper.$el.trigger("move", [e]);
+                dragHelper.$el.show();
             }).on("mouseup",function(){
                     $(this).off("mousemove");
                     $(this).off("mouseup");
                     dragHelper.remove();
                 });
-            $("#center").on("mouseup",function(){
+            $("#center").on("mouseup",function(event){
                 var shape = dragHelper.status.shape;
                 shape.model.set(shape.model.get("type")=="circle"?{cx: event.offsetX,cy: event.offsetY}:{x:event.offsetX,y:event.offsetY});
                 shape.paper = $.canvas.paper;
                 shape.draw();
+                shape.selected();
                 $(this).off("mouseup");
             });
         }

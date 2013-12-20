@@ -3,6 +3,6 @@
  */
 define(["css!style/main"], function() {
     $(document).ready(function(){
-
+        var Diagram = new Array();
     });
 });

@@ -58,3 +58,44 @@ Raphael.fn.connection = function (obj1, obj2, line, bg) {
         };
     }
 };
+Raphael.fn.connectionAssist = function(obj1,point,line,bg){
+    if (obj1.line && obj1.from && obj1.to) {
+        line = obj1;
+        obj1 = line.from;
+        point = line.to;
+    }
+    var bb1 = obj1.getBBox(),
+        p = [{x: bb1.x + bb1.width / 2, y: bb1.y - 1},
+            {x: bb1.x + bb1.width / 2, y: bb1.y + bb1.height + 1},
+            {x: bb1.x - 1, y: bb1.y + bb1.height / 2},
+            {x: bb1.x + bb1.width + 1, y: bb1.y + bb1.height / 2}],
+        d = {}, dis = [];
+    for (var i = 0; i < 4; i++) {
+            var dx = Math.abs(p[i].x - point.x),
+                dy = Math.abs(p[i].y - point.y);
+                dis.push(dx + dy);
+                d[dis[dis.length - 1]] = [i];
+    }
+    if (dis.length == 0) {
+        var res = [0, 4];
+    } else {
+        res = d[Math.min.apply(Math, dis)];
+    }
+    var x1 = p[res[0]].x,
+        y1 = p[res[0]].y,
+        x2 = point.x,
+        y2 = point.y
+    var path = ["M", x1.toFixed(3), y1.toFixed(3), "L", x2, y2].join(",");
+    if (line && line.line) {
+        line.bg && line.bg.attr({path: path});
+        line.line.attr({path: path});
+    } else{
+        var color = typeof line == "string" ? line : "#000";
+        return {
+            bg: bg && bg.split && this.path(path).attr({stroke: bg.split("|")[0], fill: "none", "stroke-width": bg.split("|")[1] || 3}),
+            line: this.path(path).attr({stroke: color, fill: "none","arrow-end":"classic-wide-long","arrow-start":"diamond-wide-long"}),
+            from: obj1,
+            to: point
+        };
+    }
+}
