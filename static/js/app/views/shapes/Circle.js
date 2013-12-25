@@ -17,7 +17,8 @@ define(function(){
             var circle = self.paper.circle(self.model.get("cx"),self.model.get("cy"),self.model.get("r"));
             circle.attr({
                 fill: self.model.get("fill"),
-                stroke: self.model.get("stroke")
+                stroke: self.model.get("stroke"),
+                "stroke-width": self.model.get("stroke-width")
             });
             if(this.draggable)
                 circle.drag(self.move(self),self.dragger,self.up);

@@ -4,17 +4,25 @@
 define(["views/designer/shapeRepository/ElementList",
         "views/designer/shapeRepository/TaskShape",
         "views/designer/shapeRepository/StartEventShape",
+        "views/designer/shapeRepository/EndEventShape",
+        "views/designer/shapeRepository/ParallelGatewayShape",
         "views/designer/shapeRepository/DragHelper",
         "models/shapes/Shape",
-        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,DragHelper,ShapeModel){
+        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,EndEventShape,ParallelGatewayShape,DragHelper){
     var elementList = new ElementList();
     var taskShape = new TaskShape();
     var startEventShape = new StartEventShape();
+    var endEventShape = new EndEventShape();
+    var parallelGatewayShape = new ParallelGatewayShape();
     var shapeList = new Array();
     shapeList.push(taskShape);
     shapeList.push(startEventShape);
+    shapeList.push(parallelGatewayShape);
+    shapeList.push(endEventShape);
     elementList.$el.append(taskShape.$el);
     elementList.$el.append(startEventShape.$el);
+    elementList.$el.append(parallelGatewayShape.$el);
+    elementList.$el.append(endEventShape.$el);
     elementList.$el.appendTo($("#west"));
     var mousedownHandler = function(shapeView) {
         return function(){
@@ -40,6 +48,16 @@ define(["views/designer/shapeRepository/ElementList",
                 shape.draw();
                 shape.selected();
                 $(this).off("mouseup");
+                $(this).off("mousemove");
+                $(this).off("mouseout");
+            }).on("mousemove",function(){
+                    var status = dragHelper.status;
+                    status.flag = true;
+                    dragHelper.setStatus(status);
+            }).on("mouseout",function(){
+                    var status = dragHelper.status;
+                    status.flag = false;
+                    dragHelper.setStatus(status);
             });
         }
     }

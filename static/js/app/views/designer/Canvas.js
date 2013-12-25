@@ -1,17 +1,34 @@
 /**
  * Created by yao on 13-12-17.
  */
-define(function(){
+define(["views/designer/bpmn2/ParallelGateway",
+        "models/shapes/Gateway",
+        "views/shapes/Plus",
+        "models/shapes/Plus"],function(ParallelGatewayView,ParallelGatewayModel,PlusView,PlusModel){
     return Backbone.View.extend({
         el: "#center",
         paper: undefined,
         initialize: function() {
             var container = this.el;
-            this.paper = new Raphael(container,$(container).innerWidth(),$(container).innerHeight());
+            this.paper = new Raphael(container,1485,1650);
             this.render();
         },
         render: function(){
 //            var paper = this.paper;
+//            var model = new ParallelGatewayModel({
+//                x: 100,
+//                y: 200,
+//                width: 40,
+//                height: 40,
+//                fill: "#fff",
+//                weight: 5,
+//                padding: 10
+//            });
+//            var view = new ParallelGatewayView({
+//                model: model
+//            });
+//            view.paper = paper;
+//            view.draw();
 //            var circle = paper.circle(50,50,20);
 //            circle.node.id = "circle";
 //            var rect = paper.rect(150,30,100,80,10);

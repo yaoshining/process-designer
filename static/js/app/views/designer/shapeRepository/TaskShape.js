@@ -3,7 +3,7 @@
  */
 define(["views/designer/bpmn2/Task",
     "models/shapes/Rect",
-    "views/designer/ShapeHelper"],function(TaskView,TaskModel,ShapeHelper){
+    "views/designer/ShapeHelper"],function(TaskView,TaskModel){
     return Backbone.View.extend({
         tagName: "li",
         icon: "images/bpmn2.0/icons/activity/task.png",

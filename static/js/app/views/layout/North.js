@@ -5,6 +5,9 @@ define(function(){
     return Backbone.View.extend({
         tagName: "div",
         className: "ui-layout-north",
+        attributes: {
+            id: "north"
+        },
         initialize: function() {
             this.render();
         },

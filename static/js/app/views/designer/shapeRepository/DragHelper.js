@@ -32,6 +32,7 @@ define(function(){
         },
         setStatus: function(status) {
             this.status = status;
+            this.$el.empty();
             this.render();
         }
     });
