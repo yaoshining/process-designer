@@ -1,10 +1,10 @@
 /**
- * Created by 世宁 on 13-12-24.
+ * Created by 世宁 on 13-12-26.
  */
 define(["views/designer/bpmn2/Gateway",
-        "views/shapes/Plus",
-        "models/shapes/Plus",
-        "views/designer/ShapeHelper"],function(GatewayView,PlusView,PlusModel,ShapeHelper){
+    "views/shapes/Plus",
+    "models/shapes/Plus",
+    "views/designer/ShapeHelper"],function(GatewayView,PlusView,PlusModel,ShapeHelper){
     var ParallelGateway = GatewayView.extend({
         render: function(){
             GatewayView.prototype.render.apply(this);

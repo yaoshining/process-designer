@@ -6,22 +6,26 @@ define(["views/designer/shapeRepository/ElementList",
         "views/designer/shapeRepository/StartEventShape",
         "views/designer/shapeRepository/EndEventShape",
         "views/designer/shapeRepository/ParallelGatewayShape",
+        "views/designer/shapeRepository/XORGatewayShape",
         "views/designer/shapeRepository/DragHelper",
         "models/shapes/Shape",
-        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,EndEventShape,ParallelGatewayShape,DragHelper){
+        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,EndEventShape,ParallelGatewayShape,XORGatewayShape,DragHelper){
     var elementList = new ElementList();
     var taskShape = new TaskShape();
     var startEventShape = new StartEventShape();
     var endEventShape = new EndEventShape();
     var parallelGatewayShape = new ParallelGatewayShape();
+    var xorGatewayShape = new XORGatewayShape();
     var shapeList = new Array();
     shapeList.push(taskShape);
     shapeList.push(startEventShape);
     shapeList.push(parallelGatewayShape);
+    shapeList.push(xorGatewayShape);
     shapeList.push(endEventShape);
     elementList.$el.append(taskShape.$el);
     elementList.$el.append(startEventShape.$el);
     elementList.$el.append(parallelGatewayShape.$el);
+    elementList.$el.append(xorGatewayShape.$el);
     elementList.$el.append(endEventShape.$el);
     elementList.$el.appendTo($("#west"));
     var mousedownHandler = function(shapeView) {

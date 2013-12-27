@@ -1,32 +1,32 @@
 /**
- * Created by 世宁 on 13-12-24.
+ * Created by 世宁 on 13-12-26.
  */
 define(["views/designer/bpmn2/Gateway",
-        "views/shapes/Plus",
-        "models/shapes/Plus",
-        "views/designer/ShapeHelper"],function(GatewayView,PlusView,PlusModel,ShapeHelper){
-    var ParallelGateway = GatewayView.extend({
+    "views/shapes/Crosses",
+    "models/shapes/Crosses",
+    "views/designer/ShapeHelper"],function(GatewayView,CrossesView,CrossesModel,ShapeHelper){
+    var XORGateway = GatewayView.extend({
         render: function(){
             GatewayView.prototype.render.apply(this);
             var diamond = this.raphaelObject;
-            var plusModel = new PlusModel({
-                x: this.model.get("x"),
+            var crossesModel = new CrossesModel({
+                x: this.model.get("x")+2.5,
                 y: this.model.get("y"),
-                width: this.model.get("width"),
+                width: this.model.get("width")-5,
                 height: this.model.get("height"),
                 weight: this.model.get("weight"),
                 padding: this.model.get("padding"),
                 fill: "#000"
             });
-            var plusView = new PlusView({
-                model: plusModel
+            var crossesView = new CrossesView({
+                model: crossesModel
             });
-            plusView.paper = this.paper;
-            plusView.draggable = false;
-            plusView.draw();
-            var plus = plusView.raphaelObject;
+            crossesView.paper = this.paper;
+            crossesView.draggable = false;
+            crossesView.draw();
+            var crosses = crossesView.raphaelObject;
             var st = this.paper.set();
-            st.push(diamond,plus);
+            st.push(diamond,crosses);
             st.drag(this.move(this),this.dragger(this),this.up);
             var self = this;
             st.click(function(){
@@ -46,9 +46,11 @@ define(["views/designer/bpmn2/Gateway",
         dragger: function(obj){
             return function(){
                 var diamond = obj.raphaelObject[0];
-                var plus = obj.raphaelObject[1];
+                var crosses = obj.raphaelObject[1];
+
                 this.diamondPath = diamond.attr("path");
-                this.plusPath = plus.attr("path");
+                this.crossPath1 = crosses[0].attr("path");
+                this.crossPath2 = crosses[1].attr("path");
                 this.ox = diamond.getBBox().x;
                 this.oy = diamond.getBBox().y;
                 this.animate({"fill-opacity": .2}, 500);
@@ -72,9 +74,11 @@ define(["views/designer/bpmn2/Gateway",
                 var diamond = obj.raphaelObject[0];
                 var diamondAttr = {path: Raphael.transformPath(this.diamondPath.toString(),"t"+dx+","+dy)};
                 diamond.attr(diamondAttr);
-                var plusAttr = {path: Raphael.transformPath(this.plusPath.toString(),"t"+dx+","+dy)};
-                var plus = obj.raphaelObject[1];
-                plus.attr(plusAttr);
+                var crossAttr1 = {path: Raphael.transformPath(this.crossPath1.toString(),"t"+dx+","+dy)};
+                var crossAttr2 = {path: Raphael.transformPath(this.crossPath2.toString(),"t"+dx+","+dy)};
+                var crosses = obj.raphaelObject[1];
+                crosses[0].attr(crossAttr1);
+                crosses[1].attr(crossAttr2);
                 for(var i=0;i<obj.incomingConnections.length;i++) {
                     var conn = obj.incomingConnections[i];
                     obj.paper.connection(conn.raphaelObject);
@@ -97,5 +101,5 @@ define(["views/designer/bpmn2/Gateway",
             }
         }
     });
-    return ParallelGateway;
+    return XORGateway;
 });

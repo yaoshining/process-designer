@@ -1,14 +1,9 @@
 /**
  * Created by 世宁 on 13-12-20.
  */
-define(function(){
-    return Backbone.View.extend({
-        tagName: "g",
-        paper: null,
-        draggable: true,
-        raphaelObject: null,
-        incomingConnections: [],
-        outgoingConnections: [],
+define(["views/shapes/Shape"],function(Shape){
+    return Shape.extend({
+
         initialize: function() {
 
         },
@@ -40,6 +35,7 @@ define(function(){
         },
         dragger: function(obj){
             return function(){
+                $.canvas.$el.trigger("autoscroll");
                 this.path = this.attr("path");
                 this.animate({"fill-opacity": .2}, 500);
             }
@@ -61,27 +57,6 @@ define(function(){
                 }
                 obj.moveHandler(dx,dy,this);
             }
-        },
-        addIncoming: function(conn){
-            this.incomingConnections.push(conn);
-        },
-        addOutgoing: function(conn) {
-            this.outgoingConnections.push(conn);
-        },
-        moveHandler: function(dx,dy,shape){
-
-        },
-        selected: function(){
-
-        },
-        unselected: function(){
-
-        },
-        click: function() {
-            this.selected();
-        },
-        mouseup: function(){
-
         }
     });
 });

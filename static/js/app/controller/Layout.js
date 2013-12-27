@@ -24,11 +24,11 @@ require([
     "views/shapes/Connection",
     "models/shapes/Circle",
     "models/shapes/Rect"],function(North,South,East,West,Center,layoutSettings,Canvas,CircleView,RectView,ConnectionView,CircleModel,RectModel){
-    new North();
-    new South();
-    new East();
-    new West();
-    new Center();
+    Layout.north = new North();
+    Layout.south = new South();
+    Layout.east = new East();
+    Layout.west = new West();
+    Layout.center = new Center();
     $(function(){
         var layout = $("body").layout(layoutSettings);
         var westSelector = "body > .ui-layout-west";

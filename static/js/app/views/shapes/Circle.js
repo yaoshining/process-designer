@@ -1,14 +1,9 @@
 /**
  * Created by 世宁 on 13-12-18.
  */
-define(function(){
-    var Circle = Backbone.View.extend({
-        tagName: "g",
-        paper: null,
-        draggable: true,
-        raphaelObject: null,
-        incomingConnections: [],
-        outgoingConnections: [],
+define(["views/shapes/Shape"],function(Shape){
+    var Circle = Shape.extend({
+
         initialize: function() {
 
         },
@@ -34,6 +29,7 @@ define(function(){
             this.render();
         },
         dragger: function(){
+            $.canvas.$el.trigger("autoscroll");
             this.ox = this.attr("cx");
             this.oy = this.attr("cy");
             this.animate({"fill-opacity": .2}, 500);
@@ -55,27 +51,6 @@ define(function(){
                 }
                 obj.moveHandler(dx,dy,this);
             }
-        },
-        addIncoming: function(conn){
-            this.incomingConnections.push(conn);
-        },
-        addOutgoing: function(conn) {
-            this.outgoingConnections.push(conn);
-        },
-        moveHandler: function(dx,dy,shape){
-
-        },
-        selected: function(){
-            alert("ok");
-        },
-        unselected: function(){
-
-        },
-        click: function(){
-            this.selected();
-        },
-        mouseup: function(){
-
         }
     });
     return Circle;

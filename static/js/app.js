@@ -5,6 +5,13 @@ var diagram = {
     shapes: new Array(),
     selected: undefined
 };
+var Layout = {
+    west: undefined,
+    east: undefined,
+    north: undefined,
+    south: undefined,
+    center: undefined
+};
 requirejs.config({
     "baseUrl": "js/lib",
     "paths": {

@@ -1,10 +1,10 @@
 /**
  * Created by yao on 13-12-17.
  */
-define(["views/designer/bpmn2/ParallelGateway",
+define(["views/designer/bpmn2/XORGateway",
         "models/shapes/Gateway",
-        "views/shapes/Plus",
-        "models/shapes/Plus"],function(ParallelGatewayView,ParallelGatewayModel,PlusView,PlusModel){
+        "views/shapes/Crosses",
+        "models/shapes/Crosses"],function(XORGatewayView,XORGatewayModel,CrossesView,CrossesModel){
     return Backbone.View.extend({
         el: "#center",
         paper: undefined,
@@ -13,7 +13,56 @@ define(["views/designer/bpmn2/ParallelGateway",
             this.paper = new Raphael(container,1485,1650);
             this.render();
         },
+        events: {
+          "autoscroll": function(){
+              var int;
+                $("body").on("mousemove",function(e){
+                    if(e.pageY>Layout.north.el.clientHeight+Layout.center.el.clientHeight && !int){
+                        int = setInterval(function(){
+                            Layout.center.$el.scrollTop(Layout.center.$el.scrollTop()+10);
+                        },20);
+                    }
+                    if(e.pageX<Layout.west.el.clientWidth+Layout.center.el.clientWidth && e.pageY>Layout.north.el.clientHeight && e.pageX>Layout.west.el.clientWidth+5 && e.pageY<Layout.north.el.clientHeight+Layout.center.el.clientHeight && int){
+                        clearInterval(int);
+                        int = undefined;
+                    }
+                    if(e.pageX<Layout.west.el.clientWidth+5 && !int){
+                        int = setInterval(function(){
+                            Layout.center.$el.scrollLeft(Layout.center.$el.scrollLeft()-10);
+                        },20);
+                    }
+                    if(e.pageY<Layout.north.el.clientHeight && !int){
+                        int = setInterval(function(){
+                            Layout.center.$el.scrollTop(Layout.center.$el.scrollTop()-10);
+                        },20);
+                    }
+                    if(e.pageX>Layout.west.el.clientWidth+Layout.center.el.clientWidth && !int){
+                        int = setInterval(function(){
+                            Layout.center.$el.scrollLeft(Layout.center.$el.scrollLeft()+10);
+                        },20);
+                    }
+                }).one("mouseup",function(){
+                  $(this).off("mousemove");
+                  clearInterval(int);
+              });
+          },
+          "mousemove": function(e){
+
+          }
+        },
         render: function(){
+//            var int;
+//            center.$el.on("mousemove",function(e){
+//                if(e.clientY>north.el.clientHeight+center.el.clientHeight && !int){
+//                    int = setInterval(function(){
+//                        center.$el.scrollTop(center.$el.scrollTop()+10);
+//                    },10);
+//                }
+//                if(e.clientY<north.el.clientHeight+center.el.clientHeight && int){
+//                    clearInterval(int);
+//                    int = undefined;
+//                }
+//            });
 //            var paper = this.paper;
 //            var model = new ParallelGatewayModel({
 //                x: 100,
