@@ -8,7 +8,7 @@ define(["views/shapes/Rect"],function(RectView){
             $("#buttonPane").css({
                 left: this.model.get("x")+this.model.get("width"),
                 top: this.model.get("y")
-            });
+            }).show();
             this.listenTo(this.model,"change",function(){
                 $("#buttonPane").css({
                     left: this.model.get("x")+this.model.get("width"),
@@ -21,7 +21,11 @@ define(["views/shapes/Rect"],function(RectView){
             $("#buttonPane").css({
                 left: this.model.get("x")+this.model.get("width"),
                 top: this.model.get("y")
-            });
+            }).show();
+        },
+        destroy: function(){
+            RectView.prototype.destroy.apply(this);
+            $("#buttonPane").hide();
         }
     });
 });

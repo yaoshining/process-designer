@@ -29,6 +29,16 @@ define(function(){
         },
         mouseup: function(){
 
+        },
+        up: function(e){
+            this.animate({"fill-opacity": 1}, 500);
+            if(e.pageX<Layout.west.el.clientWidth+Layout.center.el.clientWidth && e.pageY>Layout.north.el.clientHeight && e.pageX>Layout.west.el.clientWidth+5 && e.pageY<Layout.north.el.clientHeight+Layout.center.el.clientHeight){
+//                this.transform("t"+ e.offsetX+","+ e.offsetY);
+                console.log(e.offsetX+","+ e.offsetY);
+            }
+        },
+        destroy: function(){
+            this.raphaelObject.remove();
         }
     });
     return Shape;

@@ -42,6 +42,9 @@ define(["views/designer/shapeRepository/ElementList",
                 dragHelper.$el.show();
             }).on("mouseup",function(){
                     $(this).off("mousemove");
+                    Layout.center.$el.off("mouseup");
+                    Layout.center.$el.off("mousemove");
+                    Layout.center.$el.off("mouseout");
                     $(this).off("mouseup");
                     dragHelper.remove();
                 });

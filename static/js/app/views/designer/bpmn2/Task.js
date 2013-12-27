@@ -47,6 +47,10 @@ define(["views/shapes/Rect",
                 this.outgoingConnections.push(conn);
                 $("#connectButton").removeData("conn");
             }
+        },
+        destroy: function(){
+            RectView.prototype.destroy.apply(this);
+            this.helper.destroy();
         }
     })
 });

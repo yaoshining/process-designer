@@ -37,9 +37,6 @@ define(["views/shapes/Shape"],function(Shape){
             this.oy = this.attr("y");
             this.animate({"fill-opacity": .2}, 500);
         },
-        up: function() {
-            this.animate({"fill-opacity": 1}, 500);
-        },
         move: function(obj) {
             return function(dx,dy,x,y,e){
                 var attr = {x: this.ox + dx, y: this.oy + dy};

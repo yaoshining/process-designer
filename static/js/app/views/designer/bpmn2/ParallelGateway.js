@@ -45,6 +45,7 @@ define(["views/designer/bpmn2/Gateway",
         },
         dragger: function(obj){
             return function(){
+                $.canvas.$el.trigger("autoscroll");
                 var diamond = obj.raphaelObject[0];
                 var plus = obj.raphaelObject[1];
                 this.diamondPath = diamond.attr("path");
@@ -63,9 +64,6 @@ define(["views/designer/bpmn2/Gateway",
         },
         unselected: function(){
             this.helper.raphaelObject.hide();
-        },
-        up: function() {
-            this.animate({"fill-opacity": 1}, 500);
         },
         move: function(obj) {
             return function(dx,dy){

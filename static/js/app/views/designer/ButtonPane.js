@@ -23,17 +23,18 @@ define(["views/shapes/Connection"],function(ConnectionView){
                var line;
                $.canvas.$el.on("mousemove",function(event){
                    if(!line){
-                       line = $.canvas.paper.connectionAssist(conn.from.raphaelObject,{x: event.offsetX-1,y: event.offsetY},"#000");
-                   }
+                           line = $.canvas.paper.connectionAssist(conn.from.raphaelObject,{x: event.offsetX-1,y: event.offsetY},"#000");
+                       }
                    else{
-                       line.to = {x: event.offsetX-1,y: event.offsetY};
-                       $.canvas.paper.connectionAssist(line);
+                           line.to = {x: event.offsetX-1,y: event.offsetY};
+                           $.canvas.paper.connectionAssist(line);
                    }
                });
-               $("body").on("mouseup",function(){
-                   line.line.remove();
+               $("body").one("mouseup",function(){
+                   if(line)
+                        line.line.remove();
+                   $connectButton.removeData("conn");
                    $.canvas.$el.off("mousemove");
-                   $(this).off("mouseup");
                });
            });
           this.$el.append($connectButton).css({

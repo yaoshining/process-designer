@@ -38,6 +38,10 @@ define(["views/shapes/Circle","views/designer/ShapeHelper","models/shapes/Rect"]
         },
         unselected: function(){
             this.helper.raphaelObject.hide();
+        },
+        destroy: function(){
+            CircleView.prototype.destroy.apply(this);
+            this.helper.destroy();
         }
     });
 });

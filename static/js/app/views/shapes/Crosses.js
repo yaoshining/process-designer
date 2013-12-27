@@ -59,9 +59,6 @@ define(["views/shapes/Shape"],function(Shape){
 //                obj.raphaelObject.animate({"fill-opacity": .2}, 500);
             }
         },
-        up: function() {
-//            this.animate({"fill-opacity": 1}, 500);
-        },
         move: function(obj) {
             return function(dx,dy){
                 var cross1 = obj.raphaelObject[0];

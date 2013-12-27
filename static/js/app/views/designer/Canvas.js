@@ -51,6 +51,14 @@ define(["views/designer/bpmn2/XORGateway",
           }
         },
         render: function(){
+            $("body").keydown(function(e){
+                if(e.which==46){
+                    diagram.selected.unselected();
+                    diagram.selected.destroy();
+                    diagram.shapes.pop(diagram.selected);
+                    diagram.selected = undefined;
+                }
+            });
 //            var int;
 //            center.$el.on("mousemove",function(e){
 //                if(e.clientY>north.el.clientHeight+center.el.clientHeight && !int){

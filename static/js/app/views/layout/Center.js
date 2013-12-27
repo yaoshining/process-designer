@@ -37,14 +37,16 @@ define(["views/shapes/Connection"],function(ConnectionView){
                     }
                 });
                 $("body").on("mouseup",function(){
-                    line.line.remove();
+                    if(line)
+                        line.line.remove();
+                    $connectButton.removeData("conn");
                     $.canvas.$el.off("mousemove");
                     $(this).off("mouseup");
                 });
             });
             var $buttonPane = $("<div>").attr("id","buttonPane").append($connectButton).css({
                 position: "absolute"
-            });
+            }).hide();
             this.$el.append($buttonPane);
             this.$el.append($("<div>"));
         }

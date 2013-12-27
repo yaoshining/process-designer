@@ -21,6 +21,10 @@ define(["views/shapes/Diamond","views/designer/ShapeHelper"],function(DiamondVie
             shapeHelper.paper = this.paper;
             shapeHelper.draw();
             this.helper = shapeHelper;
+        },
+        destroy: function(){
+            DiamondView.prototype.destroy.apply(this);
+            this.helper.destroy();
         }
     });
     return Gateway;
