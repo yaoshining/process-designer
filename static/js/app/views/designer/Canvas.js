@@ -1,10 +1,10 @@
 /**
  * Created by yao on 13-12-17.
  */
-define(["views/designer/bpmn2/XORGateway",
+define(["views/designer/bpmn2/InclusiveGateway",
         "models/shapes/Gateway",
         "views/shapes/Crosses",
-        "models/shapes/Crosses"],function(XORGatewayView,XORGatewayModel,CrossesView,CrossesModel){
+        "models/shapes/Crosses"],function(InclusiveGatewayView,InclusiveGatewayModel,CrossesView,CrossesModel){
     return Backbone.View.extend({
         el: "#center",
         paper: undefined,
@@ -59,13 +59,13 @@ define(["views/designer/bpmn2/XORGateway",
                     diagram.selected = undefined;
                 }
             });
-            if (typeof(this.el.onselectstart) != "undefined") {
+            if (typeof(this.paper.canvas.onselectstart) != "undefined") {
                 // IE下禁止元素被选取
-                this.el.onselectstart = new Function("return false");
+                this.paper.canvas.onselectstart = new Function("return false");
             } else {
                 // firefox下禁止元素被选取的变通办法
-                this.el.onmousedown = new Function("return false");
-                this.el.onmouseup = new Function("return true");
+                this.paper.canvas.onmousedown = new Function("return false");
+                this.paper.canvas.onmouseup = new Function("return true");
             }
 //            var int;
 //            center.$el.on("mousemove",function(e){
@@ -80,7 +80,7 @@ define(["views/designer/bpmn2/XORGateway",
 //                }
 //            });
 //            var paper = this.paper;
-//            var model = new ParallelGatewayModel({
+//            var model = new InclusiveGatewayModel({
 //                x: 100,
 //                y: 200,
 //                width: 40,
@@ -89,7 +89,7 @@ define(["views/designer/bpmn2/XORGateway",
 //                weight: 5,
 //                padding: 10
 //            });
-//            var view = new ParallelGatewayView({
+//            var view = new InclusiveGatewayView({
 //                model: model
 //            });
 //            view.paper = paper;

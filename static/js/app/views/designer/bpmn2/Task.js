@@ -43,8 +43,8 @@ define(["views/shapes/Rect",
             if(conn && conn.from!==this){
                 conn.to = this;
                 conn.draw();
-                conn.from.incomingConnections.push(conn);
-                this.outgoingConnections.push(conn);
+                conn.from.addIncoming(conn);
+                this.addOutgoing(conn);
                 $("#connectButton").removeData("conn");
             }
         },

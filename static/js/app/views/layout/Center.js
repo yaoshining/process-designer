@@ -27,7 +27,7 @@ define(["views/shapes/Connection"],function(ConnectionView){
                 conn.from = diagram.selected;
                 $(this).data("conn",conn);
                 var line;
-                $.canvas.$el.on("mousemove",function(event){
+                $($.canvas.paper.canvas).on("mousemove",function(event){
                     if(!line){
                         line = $.canvas.paper.connectionAssist(conn.from.raphaelObject,{x: event.offsetX-1,y: event.offsetY},"#000");
                     }
@@ -36,12 +36,11 @@ define(["views/shapes/Connection"],function(ConnectionView){
                         $.canvas.paper.connectionAssist(line);
                     }
                 });
-                $("body").on("mouseup",function(){
+                $("body").one("mouseup",function(){
                     if(line)
                         line.line.remove();
                     $connectButton.removeData("conn");
-                    $.canvas.$el.off("mousemove");
-                    $(this).off("mouseup");
+                    $($.canvas.paper.canvas).off("mousemove");
                 });
             });
             var $buttonPane = $("<div>").attr("id","buttonPane").append($connectButton).css({

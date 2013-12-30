@@ -2,31 +2,34 @@
  * Created by 世宁 on 13-12-26.
  */
 define(["views/designer/bpmn2/Gateway",
-    "views/shapes/Plus",
-    "models/shapes/Plus",
-    "views/designer/ShapeHelper"],function(GatewayView,PlusView,PlusModel,ShapeHelper){
-    var ParallelGateway = GatewayView.extend({
+    "views/shapes/Circle",
+    "models/shapes/Circle",
+    "views/designer/ShapeHelper"],function(GatewayView,CircleView,CircleModel,ShapeHelper){
+    var  InclusiveGateway = GatewayView.extend({
         render: function(){
             GatewayView.prototype.render.apply(this);
             var diamond = this.raphaelObject;
-            var plusModel = new PlusModel({
-                x: this.model.get("x"),
-                y: this.model.get("y"),
-                width: this.model.get("width"),
-                height: this.model.get("height"),
-                weight: this.model.get("weight"),
-                padding: this.model.get("padding"),
-                fill: "#000"
+            var x = this.model.get("x");
+            var y = this.model.get("y");
+            var width = this.model.get("width");
+            var height = this.model.get("height");
+            var padding = this.model.get("padding");
+            var circleModel = new CircleModel({
+                cx: x+width/2,
+                cy: y+height/2,
+                r: (Math.min(width,height)-2*padding)/2,
+                fill: "#fff",
+                "stroke-width": 2
             });
-            var plusView = new PlusView({
-                model: plusModel
+            var circleView = new CircleView({
+                model: circleModel
             });
-            plusView.paper = this.paper;
-            plusView.draggable = false;
-            plusView.draw();
-            var plus = plusView.raphaelObject;
+            circleView.paper = this.paper;
+            circleView.draggable = false;
+            circleView.draw();
+            var circle = circleView.raphaelObject;
             var st = this.paper.set();
-            st.push(diamond,plus);
+            st.push(diamond,circle);
             st.drag(this.move(this),this.dragger(this),this.up);
             var self = this;
             st.click(function(){
@@ -47,9 +50,9 @@ define(["views/designer/bpmn2/Gateway",
             return function(){
                 $.canvas.$el.trigger("autoscroll");
                 var diamond = obj.raphaelObject[0];
-                var plus = obj.raphaelObject[1];
+                var circle = obj.raphaelObject[1];
                 this.diamondPath = diamond.attr("path");
-                this.plusPath = plus.attr("path");
+                this.ocircle = {ox: circle.attr("cx"),oy: circle.attr("cy")};
                 this.ox = diamond.getBBox().x;
                 this.oy = diamond.getBBox().y;
                 this.animate({"fill-opacity": .2}, 500);
@@ -70,9 +73,9 @@ define(["views/designer/bpmn2/Gateway",
                 var diamond = obj.raphaelObject[0];
                 var diamondAttr = {path: Raphael.transformPath(this.diamondPath.toString(),"t"+dx+","+dy)};
                 diamond.attr(diamondAttr);
-                var plusAttr = {path: Raphael.transformPath(this.plusPath.toString(),"t"+dx+","+dy)};
-                var plus = obj.raphaelObject[1];
-                plus.attr(plusAttr);
+                var circleAttr = {cx: this.ocircle.ox+dx,cy: this.ocircle.oy+dy};
+                var circle = obj.raphaelObject[1];
+                circle.attr(circleAttr);
                 for(var i=0;i<obj.incomingConnections.length;i++) {
                     var conn = obj.incomingConnections[i];
                     obj.paper.connection(conn.raphaelObject);
@@ -95,5 +98,5 @@ define(["views/designer/bpmn2/Gateway",
             }
         }
     });
-    return ParallelGateway;
+    return InclusiveGateway;
 });

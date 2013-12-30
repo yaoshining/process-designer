@@ -6,10 +6,6 @@
  */
 define(["views/shapes/Shape"],function(Shape){
     return Shape.extend({
-
-        initialize: function() {
-
-        },
         render: function(){
             var self = this;
             var rect = this.paper.rect(this.model.get("x"),this.model.get("y"),this.model.get("width"),this.model.get("height"),this.model.get("r"));

@@ -7,25 +7,29 @@ define(["views/designer/shapeRepository/ElementList",
         "views/designer/shapeRepository/EndEventShape",
         "views/designer/shapeRepository/ParallelGatewayShape",
         "views/designer/shapeRepository/XORGatewayShape",
+        "views/designer/shapeRepository/InclusiveGatewayShape",
         "views/designer/shapeRepository/DragHelper",
         "models/shapes/Shape",
-        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,EndEventShape,ParallelGatewayShape,XORGatewayShape,DragHelper){
+        "css!style/designer/shapeRepository"],function(ElementList,TaskShape,StartEventShape,EndEventShape,ParallelGatewayShape,XORGatewayShape,InclusiveGatewayShape,DragHelper){
     var elementList = new ElementList();
     var taskShape = new TaskShape();
     var startEventShape = new StartEventShape();
     var endEventShape = new EndEventShape();
     var parallelGatewayShape = new ParallelGatewayShape();
     var xorGatewayShape = new XORGatewayShape();
+    var inclusiveGatewayShape = new InclusiveGatewayShape();
     var shapeList = new Array();
     shapeList.push(taskShape);
     shapeList.push(startEventShape);
     shapeList.push(parallelGatewayShape);
     shapeList.push(xorGatewayShape);
+    shapeList.push(inclusiveGatewayShape);
     shapeList.push(endEventShape);
     elementList.$el.append(taskShape.$el);
     elementList.$el.append(startEventShape.$el);
     elementList.$el.append(parallelGatewayShape.$el);
     elementList.$el.append(xorGatewayShape.$el);
+    elementList.$el.append(inclusiveGatewayShape.$el);
     elementList.$el.append(endEventShape.$el);
     elementList.$el.appendTo($("#west"));
     var mousedownHandler = function(shapeView) {
