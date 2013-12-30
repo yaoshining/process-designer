@@ -17,6 +17,9 @@ define(["raphael-extend"],function(){
         },
         draw: function() {
             this.render();
+        },
+        destroy: function(){
+            this.raphaelObject.line.remove();
         }
     });
 });

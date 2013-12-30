@@ -39,6 +39,16 @@ define(function(){
         },
         destroy: function(){
             this.raphaelObject.remove();
+            console.log(this.incomingConnections.length);
+            for(var i=0;i<this.incomingConnections.length;i++) {
+                var conn = this.incomingConnections[i];
+                console.log(conn);
+            }
+            console.log(this.outgoingConnections.length);
+            for(var i=0;i<this.outgoingConnections.length;i++) {
+                var conn = this.outgoingConnections[i];
+                console.log(conn);
+            }
         }
     });
     return Shape;

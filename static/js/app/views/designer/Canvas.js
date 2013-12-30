@@ -59,6 +59,14 @@ define(["views/designer/bpmn2/XORGateway",
                     diagram.selected = undefined;
                 }
             });
+            if (typeof(this.el.onselectstart) != "undefined") {
+                // IE下禁止元素被选取
+                this.el.onselectstart = new Function("return false");
+            } else {
+                // firefox下禁止元素被选取的变通办法
+                this.el.onmousedown = new Function("return false");
+                this.el.onmouseup = new Function("return true");
+            }
 //            var int;
 //            center.$el.on("mousemove",function(e){
 //                if(e.clientY>north.el.clientHeight+center.el.clientHeight && !int){
